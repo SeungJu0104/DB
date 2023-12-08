@@ -11,8 +11,39 @@ SELECT EMP_ID 사번, EMP_NAME 사원명, MANAGER_ID AS '관리자 사번',
 FROM EMPLOYEE E 
 ORDER BY 4;
 
+/* 실습 2
+ * MEMBER 테이블을 생성해, 사용자 정보를 받을 수 있는 테이블 객체를 생성한다.
+ * 회원번호 : INT, 기본키
+ * 회원아이디 : VARCHAR, 중복 불가, 필수 입력사항
+ * 회원 비밀번호 : VARCHAR, 필수 입력 사항
+ * 회원 이름 : VARCHAR
+ * 성별 : VARCHAR, M / F만 입력
+ * 회원 연락처 : VARCAHR
+ * 생년월일 : VARCHAR
+ * 각 컬럼의 크기와 이름은 임의로 처리하고,
+ * 생성 후 회원정보는 5개 이상 INSERT 후 확인한다.
+ */
+CREATE TABLE MEMBER (
+	M_NO INT ,
+	M_ID VARCHAR(20) NOT NULL,
+	M_PW VARCHAR(20) NOT NULL,
+	M_NAME VARCHAR(20),
+	M_SEX VARCHAR(5),
+	M_PHONE VARCHAR(30),
+	M_BIRTH VARCHAR(30),
+	CONSTRAINT PK_M_NO PRIMARY KEY(M_NO),
+	CONSTRAINT UK_M_ID UNIQUE(M_ID),
+	CONSTRAINT CK_M_SEX CHECK(M_SEX IN ('M', 'F'))
+	-- NOT NULL은 테이블 레벨 제약 조건 선언 안된다.
+	-- 테이블 레벨에서 NOT NULL UNIQUE 해도 안된다.
+);
 
+INSERT INTO MEMBER VALUES(1, 'TEST01', 'TEST01', '김소현', 'M', '010-1111-1111', '900101');
+INSERT INTO MEMBER VALUES(2, 'TEST02', 'TEST01', '김소현', 'M', '010-1111-1111', '900101');
+INSERT INTO MEMBER VALUES(3, 'TEST03', 'TEST03', '김소현', 'F', '010-1111-1111', '900101');
+INSERT INTO MEMBER VALUES(4, 'TEST04', 'TEST04', '김소현', 'F', '010-1111-1111', '900101');
+INSERT INTO MEMBER VALUES(5, 'TEST05', 'TEST05', '김동욱', 'M', '010-1111-1111', '900110');
+INSERT INTO MEMBER VALUES(6, 'test05', 'TEST05', '김동욱', 'M', '010-1111-1111', '900110');
 
-
-
-
+SELECT * FROM MEMBER;
+DROP TABLE MEMBER;
